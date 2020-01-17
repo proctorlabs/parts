@@ -12,5 +12,5 @@ generate:
     echo "Regenerating all parts..."
     python3 -m parts
     echo 'Files generated, opening openscad if needed'
-    (pgrep -x openscad -c > /dev/null) || (openscad out/test.scad &)
+    (pgrep -x openscad -c > /dev/null) || (openscad 'out/NodeMCU Relay Case.scad' &)
     echo 'Done!'
