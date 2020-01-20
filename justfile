@@ -5,7 +5,7 @@ setup:
 
 watch:
     @echo 'Regenerating SCAD files on change...'
-    watchexec -e py -r -i __pycache__ -c just generate
+    watchexec -e py -i __pycache__ -c just generate
 
 generate:
     #!/usr/bin/env sh

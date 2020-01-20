@@ -2,6 +2,9 @@
 from ..common import *
 
 
+draw_pcb = False
+
+
 class PCB(ScadBase):
     def __init__(self, thickness=1.5, width=20, length=40,
                  mount_positions=[], mount_radius=0, pin=None):
@@ -17,16 +20,19 @@ class PCB(ScadBase):
         return 'PCB'
 
     def render(self):
-        pcb = color('green')(cube([self.width, self.length, self.thickness]))
+        pcb = color('green')
+        if (draw_pcb):
+            pcb(cube([self.width, self.length, self.thickness]))
         for mnt in self.mount_positions:
             (x, y) = (mnt[0], mnt[1])
             if (x < 0):
                 x = self.width + x
             if (y < 0):
                 y = self.length + y
-            pcb = pcb - \
-                translate([x, y, -0.01])(
-                    cylinder(r=self.mount_radius, h=self.thickness + 0.02))
+            if (draw_pcb):
+                pcb = pcb - \
+                    translate([x, y, -0.01])(
+                        cylinder(r=self.mount_radius, h=self.thickness + 0.02))
             if (self.pin):
                 pcb = pcb + \
                     translate([x, y, 0 - self.pin.base_height]
