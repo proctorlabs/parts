@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 from . import *
-from .common import *
 
 
 if __name__ == '__main__':
     objs = [
-        NodeMCURelayCase()
+        # NodeMCURelayCase()
+        Edge()
+        # MeshNegative()
     ]
 
     for obj in objs:
