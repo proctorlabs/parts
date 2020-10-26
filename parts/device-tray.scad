@@ -12,9 +12,15 @@ Tray_Thickness = 3.5;
 // PCB Threshold
 PCB_Threshold = 2;
 // How high the standoffs should be from the tray
-Standoff_Height = 13;
+Standoff_Height = 5;
 // Diameter of the screw holes
 Screw_Diameter = 2.35;
+
+Do_Tray_Cutout = true;
+Tray_Cutout_X = 121;
+Tray_Cutout_Y = 55.1;
+Tray_Cutout_X_Size = 6.5;
+Tray_Cutout_Y_Size = 41;
 
 /* [Standoff Positions] */
 // Standoff 1 enabled
@@ -64,15 +70,22 @@ Standoffs = [
 ];
 
 
-
 difference() {
-    cuboid([PCB_Width + (PCB_Threshold * 2), PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2), Tray_Thickness], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL);
-    for ( i = Standoffs ) {
-        if (i[0] == true) {
-            right(i[1][0] - (PCB_Width / 2))
-            forward(i[1][1] - (PCB_Length / 2))
-            cyl(h=Tray_Thickness + 0.2, d=Screw_Diameter);
+    difference() {
+        cuboid([PCB_Width + (PCB_Threshold * 2), PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2), Tray_Thickness], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+        for ( i = Standoffs ) {
+            if (i[0] == true) {
+                right(i[1][0] - (PCB_Width / 2))
+                forward(i[1][1] - (PCB_Length / 2))
+                cyl(h=Tray_Thickness + 0.2, d=Screw_Diameter);
+            }
         }
+    }
+    if (Do_Tray_Cutout == true) {
+        right(Tray_Cutout_X - (PCB_Width / 2))
+        fwd(Tray_Cutout_Y - (PCB_Length / 2))
+        down(Tray_Thickness)
+        cube([Tray_Cutout_X_Size, Tray_Cutout_Y_Size, Tray_Thickness * 2]);
     }
 }
 
@@ -81,6 +94,6 @@ for ( i = Standoffs ) {
         up(Tray_Thickness/2)
         right(i[1][0] - (PCB_Width / 2))
         forward(i[1][1] - (PCB_Length / 2))
-        tube(h=Standoff_Height, id=Screw_Diameter, od2=Screw_Diameter * 1.5, od1=Screw_Diameter * 2.5);
+        tube(h=Standoff_Height, id=Screw_Diameter, od2=Screw_Diameter * 2, od1=Screw_Diameter * 3);
     }
 }
