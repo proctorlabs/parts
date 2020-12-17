@@ -56,6 +56,8 @@ Standoff8 = false;
 // Standoff 8 XY coordinates
 Standoff8XY = [0,0];
 
+Rail_Width = 12;
+
 /* [Hidden] */
 $fs = 0.32;
 Standoffs = [
@@ -69,10 +71,42 @@ Standoffs = [
     [Standoff8, Standoff8XY]
 ];
 
-
+module Rails() {
+    back((PCB_Length / 2) - (Rail_Width / 2) + Tray_Thickness)
+    cuboid([
+        PCB_Width + (PCB_Threshold * 2),
+        // PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Rail_Width,
+        Tray_Thickness
+    ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+    forward((PCB_Length / 2) - (Rail_Width / 2) + Tray_Thickness)
+    cuboid([
+        PCB_Width + (PCB_Threshold * 2),
+        // PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Rail_Width,
+        Tray_Thickness
+    ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+    left((PCB_Length / 2) - (Rail_Width / 2))
+    cuboid([
+        Rail_Width,
+        PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Tray_Thickness
+    ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+    right((PCB_Length / 2) - (Rail_Width / 2))
+    cuboid([
+        Rail_Width,
+        PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Tray_Thickness
+    ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+    cuboid([
+        Rail_Width,
+        PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Tray_Thickness
+    ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+}
 difference() {
     difference() {
-        cuboid([PCB_Width + (PCB_Threshold * 2), PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2), Tray_Thickness], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+        Rails();
         for ( i = Standoffs ) {
             if (i[0] == true) {
                 right(i[1][0] - (PCB_Width / 2))
@@ -81,12 +115,12 @@ difference() {
             }
         }
     }
-    if (Do_Tray_Cutout == true) {
-        right(Tray_Cutout_X - (PCB_Width / 2))
-        fwd(Tray_Cutout_Y - (PCB_Length / 2))
-        down(Tray_Thickness)
-        cube([Tray_Cutout_X_Size, Tray_Cutout_Y_Size, Tray_Thickness * 2]);
-    }
+    // if (Do_Tray_Cutout == true) {
+    //     right(Tray_Cutout_X - (PCB_Width / 2))
+    //     fwd(Tray_Cutout_Y - (PCB_Length / 2))
+    //     down(Tray_Thickness)
+    //     cube([Tray_Cutout_X_Size, Tray_Cutout_Y_Size, Tray_Thickness * 2]);
+    // }
 }
 
 for ( i = Standoffs ) {

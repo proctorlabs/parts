@@ -1,6 +1,6 @@
 include <lib/all.scad>;
 /* [General] */
-Export_Case = true;
+Export_Case = false;
 
 Export_Lid = true;
 
@@ -14,7 +14,7 @@ PCB_Margin = 4.5;
 
 PCB_Margin_Left = 0;
 PCB_Margin_Right = 0;
-PCB_Margin_Front = 20;
+PCB_Margin_Front = 30;
 PCB_Margin_Back = 0;
 
 // Diameter of the screw holes
@@ -95,7 +95,7 @@ Left_Cutouts = [
 ];
 Right_Cutouts = [];
 Front_Cutouts = [
-    [0, [17, 0, 20, 15.5]]
+    [0, [21, -1, 21.5, 17]]
 ];
 Back_Cutouts = [
     [0, [7, 0, 18, 12]]

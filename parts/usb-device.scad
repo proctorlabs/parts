@@ -8,15 +8,15 @@ Make_Cap = false;
 // How deep to make the cap
 Cap_Depth = 6;
 // Thickness of the case exterior
-Shell_Thickness = 1;
+Shell_Thickness = 1.5;
 
 /* [PCB Dimensions] */
 // Length of the PCB (exclude the USB port)
-PCB_Length = 36;
+PCB_Length = 45;
 // Width of the PCB
-PCB_Width = 16;
+PCB_Width = 35;
 // Height required by the PCB
-PCB_Height = 5.5;
+PCB_Height = 10.5;
 
 /* [Engraving] */
 // The engraving text of the drive to be written on the bottom
@@ -134,4 +134,3 @@ module prism(l, w, h) {
         points=[[0,0,0], [l,0,0], [l,w,0], [0,w,0], [0,w,h], [l,w,h]],
         faces=[[0,1,2,3], [5,4,3,2], [0,4,5,1], [0,3,4], [5,2,1]]);
 }
-   
