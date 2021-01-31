@@ -58,7 +58,18 @@ Standoff8XY = [0,0];
 
 Rail_Width = 12;
 
+Edge_Height = 30;
+Rack_Units = 4;
+Ear_Width_T = 25;
+
 /* [Hidden] */
+
+Ear_Width = Ear_Width_T + Tray_Thickness;
+Rack_Height_Unit = 44.5;
+Screw_Spacing = 15.875;
+
+Rack_Space_Total = (Rack_Units * Rack_Height_Unit) - (Ear_Width * 2);
+
 $fs = 0.32;
 Standoffs = [
     [Standoff1, Standoff1XY],
@@ -78,32 +89,99 @@ module Rails() {
         // PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
         Rail_Width,
         Tray_Thickness
-    ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+    ], fillet=Tray_Thickness / 2, edges=EDGES_X_FR );
     forward((PCB_Length / 2) - (Rail_Width / 2) + Tray_Thickness)
     cuboid([
         PCB_Width + (PCB_Threshold * 2),
         // PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
         Rail_Width,
         Tray_Thickness
-    ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
+    ], fillet=Tray_Thickness / 2, edges=EDGES_X_BK);
     left((PCB_Length / 2) - (Rail_Width / 2))
     cuboid([
         Rail_Width,
-        PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Rack_Space_Total + (Tray_Thickness / 2) + (PCB_Threshold * 2),
         Tray_Thickness
     ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
     right((PCB_Length / 2) - (Rail_Width / 2))
     cuboid([
         Rail_Width,
-        PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Rack_Space_Total + (Tray_Thickness / 2) + (PCB_Threshold * 2),
         Tray_Thickness
     ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
     cuboid([
         Rail_Width,
-        PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+        Rack_Space_Total + (Tray_Thickness / 2) + (PCB_Threshold * 2),
         Tray_Thickness
     ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
 }
+
+module Mounts() {
+    forward((Rack_Space_Total / 2) + (Tray_Thickness / 2))
+    up((Edge_Height / 2) - (Tray_Thickness / 2))
+    thinning_wall(
+        h=Edge_Height,
+        l=PCB_Width + (PCB_Threshold * 2),
+        thick=Tray_Thickness,
+        strut=Tray_Thickness,
+        wall=Tray_Thickness/3,
+        orient=ORIENT_X
+    );
+
+    difference() {
+        forward((Rack_Space_Total / 2) + (Ear_Width / 2))
+        left((PCB_Width / 2) + (PCB_Threshold / 2))
+        up((Edge_Height / 2) - (Tray_Thickness / 2))
+        cuboid([
+            Tray_Thickness,
+            Ear_Width,
+            Edge_Height
+        ]);
+
+        forward((Rack_Space_Total / 2) + (Ear_Width / 2) + (Tray_Thickness / 2))
+        left((PCB_Width / 2) + (PCB_Threshold / 2))
+        up(Edge_Height - (Tray_Thickness * 2))
+        xcyl(h=Tray_Thickness + 1, d=5);
+
+        forward((Rack_Space_Total / 2) + (Ear_Width / 2) + (Tray_Thickness / 2))
+        left((PCB_Width / 2) + (PCB_Threshold / 2))
+        up(Tray_Thickness)
+        xcyl(h=Tray_Thickness + 1, d=5);
+    }
+
+    back((Rack_Space_Total / 2) + (Tray_Thickness / 2))
+    up((Edge_Height / 2) - (Tray_Thickness / 2))
+    thinning_wall(
+        h=Edge_Height,
+        l=PCB_Width + (PCB_Threshold * 2),
+        thick=Tray_Thickness,
+        strut=Tray_Thickness,
+        wall=Tray_Thickness/3,
+        orient=ORIENT_X
+    );
+
+    difference() {
+        back((Rack_Space_Total / 2) + (Ear_Width / 2))
+        left((PCB_Width / 2) + (PCB_Threshold / 2))
+        up((Edge_Height / 2) - (Tray_Thickness / 2))
+        cuboid([
+            Tray_Thickness,
+            Ear_Width,
+            Edge_Height
+        ]);
+
+        back((Rack_Space_Total / 2) + (Ear_Width / 2) + (Tray_Thickness / 2))
+        left((PCB_Width / 2) + (PCB_Threshold / 2))
+        up(Edge_Height - (Tray_Thickness * 2))
+        xcyl(h=Tray_Thickness + 1, d=5);
+
+        back((Rack_Space_Total / 2) + (Ear_Width / 2) + (Tray_Thickness / 2))
+        left((PCB_Width / 2) + (PCB_Threshold / 2))
+        up(Tray_Thickness)
+        xcyl(h=Tray_Thickness + 1, d=5);
+    }
+}
+
 difference() {
     difference() {
         Rails();
@@ -131,3 +209,15 @@ for ( i = Standoffs ) {
         tube(h=Standoff_Height, id=Screw_Diameter, od2=Screw_Diameter * 2, od1=Screw_Diameter * 3);
     }
 }
+
+Mounts();
+// forward((PCB_Length / 2) + Tray_Thickness)
+// up(15)
+// cuboid([
+//     // Rail_Width,
+//     PCB_Width + (PCB_Threshold * 2),
+//     Tray_Thickness,
+//     // PCB_Width + (PCB_Threshold * 2),
+//     // PCB_Length + (Tray_Thickness / 2) + (PCB_Threshold * 2),
+//     30
+// ], fillet=Tray_Thickness / 2, edges=EDGES_X_ALL + EDGES_Y_ALL);
