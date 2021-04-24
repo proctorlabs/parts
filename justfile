@@ -16,15 +16,3 @@ setup:
     curl -sL "https://github.com/nophead/NopSCADlib/archive/master.zip" > ~/.cache/NopSCADlib.zip
     unzip ~/.cache/NopSCADlib.zip -d ~/.cache/
     mv ~/.cache/NopSCADlib-master/ ~/.local/share/OpenSCAD/libraries/NopSCADlib
-
-watch:
-    @echo 'Regenerating SCAD files on change...'
-    watchexec -e py -i __pycache__ -c just generate
-
-generate:
-    #!/usr/bin/env sh
-    echo "Regenerating all parts..."
-    python3 -m parts
-    echo 'Files generated, opening openscad if needed'
-    (pgrep -x openscad -c > /dev/null) || (openscad 'out/NodeMCU Relay Case.scad' &)
-    echo 'Done!'

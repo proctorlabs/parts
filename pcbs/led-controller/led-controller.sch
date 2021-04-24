@@ -1,0 +1,253 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:+24V #PWR0101
+U 1 1 60204C87
+P 1300 1850
+F 0 "#PWR0101" H 1300 1700 50  0001 C CNN
+F 1 "+24V" H 1315 2023 50  0000 C CNN
+F 2 "" H 1300 1850 50  0001 C CNN
+F 3 "" H 1300 1850 50  0001 C CNN
+	1    1300 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 602056EB
+P 1300 2250
+F 0 "#PWR0102" H 1300 2000 50  0001 C CNN
+F 1 "GND" H 1305 2077 50  0000 C CNN
+F 2 "" H 1300 2250 50  0001 C CNN
+F 3 "" H 1300 2250 50  0001 C CNN
+	1    1300 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 60206738
+P 1850 2000
+F 0 "J1" H 1930 1992 50  0000 L CNN
+F 1 "POW" H 1930 1901 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 1850 2000 50  0001 C CNN
+F 3 "~" H 1850 2000 50  0001 C CNN
+	1    1850 2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 2000 1300 1850
+Wire Wire Line
+	1300 2100 1300 2250
+$Comp
+L Connector_Generic_MountingPin:Conn_01x04_MountingPin J2
+U 1 1 60206EAB
+P 2650 2850
+F 0 "J2" V 2526 3030 50  0000 L CNN
+F 1 "5V REG" V 2617 3030 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 2650 2850 50  0001 C CNN
+F 3 "~" H 2650 2850 50  0001 C CNN
+	1    2650 2850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4200 3600 4400 3600
+Wire Wire Line
+	4400 3600 4400 3200
+Wire Wire Line
+	4400 3200 4700 3200
+Wire Wire Line
+	4200 3700 4550 3700
+Wire Wire Line
+	4550 3700 4550 3550
+Wire Wire Line
+	4550 3550 4700 3550
+Wire Wire Line
+	4200 3800 4700 3800
+Wire Wire Line
+	4700 3800 4700 3900
+$Comp
+L pspice:R R3
+U 1 1 6020FA21
+P 4950 3900
+F 0 "R3" V 5155 3900 50  0000 C CNN
+F 1 "1K" V 5064 3900 50  0000 C CNN
+F 2 "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm" H 4950 3900 50  0001 C CNN
+F 3 "~" H 4950 3900 50  0001 C CNN
+	1    4950 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L pspice:R R2
+U 1 1 6020F571
+P 4950 3550
+F 0 "R2" V 5155 3550 50  0000 C CNN
+F 1 "1K" V 5064 3550 50  0000 C CNN
+F 2 "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm" H 4950 3550 50  0001 C CNN
+F 3 "~" H 4950 3550 50  0001 C CNN
+	1    4950 3550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L pspice:R R1
+U 1 1 6020E56E
+P 4950 3200
+F 0 "R1" V 5155 3200 50  0000 C CNN
+F 1 "1K" V 5064 3200 50  0000 C CNN
+F 2 "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm" H 4950 3200 50  0001 C CNN
+F 3 "~" H 4950 3200 50  0001 C CNN
+	1    4950 3200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Transistor_BJT:2N2219 Q1
+U 1 1 60221E2A
+P 5450 2750
+F 0 "Q1" H 5640 2796 50  0000 L CNN
+F 1 "2N2222" H 5640 2705 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-39-3" H 5650 2675 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 5450 2750 50  0001 L CNN
+	1    5450 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L MCU_Module:WeMos_D1_mini U1
+U 1 1 6020A265
+P 3800 3500
+F 0 "U1" H 3800 2611 50  0000 C CNN
+F 1 "WeMos_D1_mini" H 3800 2520 50  0000 C CNN
+F 2 "Module:WEMOS_D1_mini_light" H 3800 2350 50  0001 C CNN
+F 3 "https://wiki.wemos.cc/products:d1:d1_mini#documentation" H 1950 2350 50  0001 C CNN
+	1    3800 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x04 J4
+U 1 1 60230947
+P 5750 1650
+F 0 "J4" V 5714 1362 50  0000 R CNN
+F 1 "LEDs" V 5623 1362 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 5750 1650 50  0001 C CNN
+F 3 "~" H 5750 1650 50  0001 C CNN
+	1    5750 1650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Transistor_BJT:2N2219 Q2
+U 1 1 602468BE
+P 5650 3350
+F 0 "Q2" H 5840 3396 50  0000 L CNN
+F 1 "2N2222" H 5840 3305 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-39-3" H 5850 3275 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 5650 3350 50  0001 L CNN
+	1    5650 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:2N2219 Q3
+U 1 1 60247E66
+P 5850 3900
+F 0 "Q3" H 6040 3946 50  0000 L CNN
+F 1 "2N2222" H 6040 3855 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-39-3" H 6050 3825 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 5850 3900 50  0001 L CNN
+	1    5850 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 1850 5750 2400
+Wire Wire Line
+	5750 2400 5550 2400
+Wire Wire Line
+	5550 2400 5550 2550
+Wire Wire Line
+	5850 3150 5750 3150
+Wire Wire Line
+	5850 1850 5850 3150
+Wire Wire Line
+	5950 3700 6300 3700
+Wire Wire Line
+	6300 3700 6300 1850
+Wire Wire Line
+	6300 1850 5950 1850
+Wire Wire Line
+	5250 2750 5250 3200
+Wire Wire Line
+	5250 3200 5200 3200
+Wire Wire Line
+	5450 3350 5200 3350
+Wire Wire Line
+	5200 3350 5200 3550
+Wire Wire Line
+	5650 3900 5200 3900
+Wire Wire Line
+	5950 4100 5950 4300
+Connection ~ 3800 4300
+Wire Wire Line
+	5950 4300 5450 4300
+Wire Wire Line
+	5450 3550 5450 4300
+Connection ~ 5450 4300
+Wire Wire Line
+	5450 4300 3800 4300
+Wire Wire Line
+	5550 3550 5550 2950
+Wire Wire Line
+	5450 3550 5550 3550
+Connection ~ 5550 3550
+Wire Wire Line
+	5550 3550 5750 3550
+Wire Wire Line
+	1650 2650 1650 2100
+Wire Wire Line
+	1650 2100 1300 2100
+Connection ~ 1650 2100
+Wire Wire Line
+	1650 2000 1650 1850
+Wire Wire Line
+	1650 2000 1300 2000
+Connection ~ 1650 2000
+Wire Wire Line
+	3700 2700 3700 2600
+Wire Wire Line
+	3700 2600 3150 2600
+Wire Wire Line
+	3150 2600 3150 3200
+Wire Wire Line
+	3150 3200 2100 3200
+Wire Wire Line
+	2100 3200 2100 2650
+Wire Wire Line
+	2100 2650 2450 2650
+Wire Wire Line
+	1650 2650 2000 2650
+Wire Wire Line
+	1650 1850 2650 1850
+Wire Wire Line
+	2650 2650 2650 1850
+Connection ~ 2650 1850
+Wire Wire Line
+	2650 1850 5650 1850
+Wire Wire Line
+	2000 2650 2000 2450
+Wire Wire Line
+	2000 2450 2550 2450
+Wire Wire Line
+	2550 2450 2550 2650
+Wire Wire Line
+	1650 4300 1650 2650
+Wire Wire Line
+	1650 4300 3800 4300
+Connection ~ 1650 2650
+$EndSCHEMATC

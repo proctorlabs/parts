@@ -61,6 +61,7 @@ Rail_Width = 12;
 Edge_Height = 30;
 Rack_Units = 4;
 Ear_Width_T = 25;
+Repeat = 2;
 
 /* [Hidden] */
 
@@ -117,11 +118,13 @@ module Rails() {
 }
 
 module Mounts() {
+    TotWidth = (PCB_Width + (PCB_Threshold * 2)) * (Repeat + 1);
     forward((Rack_Space_Total / 2) + (Tray_Thickness / 2))
     up((Edge_Height / 2) - (Tray_Thickness / 2))
+    right((Repeat * TotWidth) / ((Repeat + 1) * 2))
     thinning_wall(
         h=Edge_Height,
-        l=PCB_Width + (PCB_Threshold * 2),
+        l=TotWidth,
         thick=Tray_Thickness,
         strut=Tray_Thickness,
         wall=Tray_Thickness/3,
@@ -151,9 +154,10 @@ module Mounts() {
 
     back((Rack_Space_Total / 2) + (Tray_Thickness / 2))
     up((Edge_Height / 2) - (Tray_Thickness / 2))
+    right((Repeat * TotWidth) / ((Repeat + 1) * 2))
     thinning_wall(
         h=Edge_Height,
-        l=PCB_Width + (PCB_Threshold * 2),
+        l=TotWidth,
         thick=Tray_Thickness,
         strut=Tray_Thickness,
         wall=Tray_Thickness/3,
@@ -182,31 +186,37 @@ module Mounts() {
     }
 }
 
-difference() {
+for ( r = [0 : Repeat] ) {
+    right((r * PCB_Width) + (Tray_Thickness * r))
     difference() {
-        Rails();
-        for ( i = Standoffs ) {
-            if (i[0] == true) {
-                right(i[1][0] - (PCB_Width / 2))
-                forward(i[1][1] - (PCB_Length / 2))
-                cyl(h=Tray_Thickness + 0.2, d=Screw_Diameter);
+        difference() {
+            Rails();
+            for ( i = Standoffs ) {
+                if (i[0] == true) {
+                    right(i[1][0] - (PCB_Width / 2))
+                    forward(i[1][1] - (PCB_Length / 2))
+                    cyl(h=Tray_Thickness + 0.2, d=Screw_Diameter);
+                }
             }
         }
+        // if (Do_Tray_Cutout == true) {
+        //     right(Tray_Cutout_X - (PCB_Width / 2))
+        //     fwd(Tray_Cutout_Y - (PCB_Length / 2))
+        //     down(Tray_Thickness)
+        //     cube([Tray_Cutout_X_Size, Tray_Cutout_Y_Size, Tray_Thickness * 2]);
+        // }
     }
-    // if (Do_Tray_Cutout == true) {
-    //     right(Tray_Cutout_X - (PCB_Width / 2))
-    //     fwd(Tray_Cutout_Y - (PCB_Length / 2))
-    //     down(Tray_Thickness)
-    //     cube([Tray_Cutout_X_Size, Tray_Cutout_Y_Size, Tray_Thickness * 2]);
-    // }
 }
 
-for ( i = Standoffs ) {
-    if (i[0] == true) {
-        up(Tray_Thickness/2)
-        right(i[1][0] - (PCB_Width / 2))
-        forward(i[1][1] - (PCB_Length / 2))
-        tube(h=Standoff_Height, id=Screw_Diameter, od2=Screw_Diameter * 2, od1=Screw_Diameter * 3);
+for ( r = [0 : Repeat] ) {
+    right((r * PCB_Width) + (Tray_Thickness * r))
+    for ( i = Standoffs ) {
+        if (i[0] == true) {
+            up(Tray_Thickness/2)
+            right(i[1][0] - (PCB_Width / 2))
+            forward(i[1][1] - (PCB_Length / 2))
+            tube(h=Standoff_Height, id=Screw_Diameter, od2=Screw_Diameter * 2, od1=Screw_Diameter * 3);
+        }
     }
 }
 
