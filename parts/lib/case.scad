@@ -16,9 +16,9 @@ module Case(
     Back_Ports = [],
 ) {
     EDGES = EDGES_Z_ALL; //TODO: Make optional
-    Size_X = Size[0];
-    Size_Y = Size[1];
-    Size_Z = Size[2];
+    Size_X = Size[0] + (Thickness * 2);
+    Size_Y = Size[1] + (Thickness * 2);
+    Size_Z = Size[2] + (Thickness * 2);
     Vents_Spread_Y = Size_Y > Size_X;
 
     color(Case_Color)

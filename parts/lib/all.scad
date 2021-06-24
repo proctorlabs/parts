@@ -8,4 +8,5 @@ use <BOSL/beziers.scad>;
 use <rounded_cube.scad>;
 use <pcb.scad>;
 use <case.scad>;
+use <case_lid.scad>;
 use <constants.scad>;
