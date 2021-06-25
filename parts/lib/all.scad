@@ -9,4 +9,5 @@ use <rounded_cube.scad>;
 use <pcb.scad>;
 use <case.scad>;
 use <case_lid.scad>;
+use <din_clip.scad>;
 use <constants.scad>;
