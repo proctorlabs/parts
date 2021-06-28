@@ -26,3 +26,14 @@ RACK_SCREW_DISTANCE_FROM_NEXT_SCREW = 15.875; // Screw distance within the same 
 RACK_SCREW_DISTANCE_FROM_NEXT_UNITS_SCREW = RACK_SCREW_DISTANCE_FROM_UNIT * 2; // From top of one unit to bottom of the next, not the same as above!
 RACK_SCREW_DISTANCE_WIDTH = 465.12; // <-->
 // Common screw types: M6, American #10-32, American #12-24, common to use square holes too for more flexibility
+
+// Batteries
+18650_DIAMETER = 18;
+18650_DIAMETER_TOLERANCE = 0.41; // May vary by MFR, but this should cover it
+18650_RADIUS = 18650_DIAMETER / 2;
+18650_LENGTH = 65;
+18650_LENGTH_TOLERANCE = 0.25;
+
+// Switches
+ROCKER_SWITCH_1_DIAMETER = 20.0; // https://www.amazon.com/gp/product/B07XC5KB8D/
+ROCKER_SWITCH_2_DIAMETER = 20.7; // https://www.amazon.com/gp/product/B07T1JG6BD/
